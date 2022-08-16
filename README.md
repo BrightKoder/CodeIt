@@ -9,44 +9,6 @@ C is a very common language, and it is the language of many applications such as
 
 C is a compiled language - which means that in order to run it, the compiler (for example, GCC or Visual Studio) must take the code that we wrote, process it, and then create an executable file. This file can then be executed, and will do what we intended for the program to do.
 
-### Basic C Terminology: 
-Every C program uses libraries, which give the ability to execute necessary functions. For example, the most basic function called ```printf```, which prints to the screen, is defined in the ```stdio.h``` header file.
-
-To add the ability to run the printf command to our program, we must add the following include directive to our first line of the code:
-
-``` 
-#include <stdio.h> 
-```
-The second part of the code is global variables, which will be accessible through out the program.
-```
-int gVar; /* global variable */
-```
-Here ```gVar``` is accessible through out the program.
-
-The third part of the code is the actual code which we are going to write. The first code which will run will always reside in the ```main``` function.
-
-```
-int main()
-{
-  /* main() function body starts here */
-  int lVar; /* local variable */
-}
-```
-The ```int``` keyword indicates that the function ```main``` will return an integer - a simple number. The number which will be returned by the function indicates whether the program that we wrote worked correctly. If we want to say that our code was run successfully, we will return the number 0. A number greater than 0 will mean that the program that we wrote failed.
-
-Local variables will be accessible in the functions where they are declared/defined. Here ```lVar``` is accessible only in main function.
-
-For this tutorial, we will return 0 to indicate that our program was successful:
-```
-return 0;
-```
-
-Notice that every statement in C must end with a semicolon, so that the compiler knows that a new statement has started.
-
-Last but not least, we will need to call the function ```printf``` to print our sentence.
-
-
-
 ### What is Compiler?
 Computers understand only one language and that language consists of sets of instructions made of ones and zeros. This computer language is appropriately called machine language.
 
@@ -213,3 +175,40 @@ Linker generates the final executable file (```.exe``` in windows and ```compila
 >  if we compile code by using below method then we can give diffrent name for executable file.<br>
 >  ```gcc -o executable-name file-name.c``` <br>
 ## 
+
+### Basic C Terminology: 
+Every C program uses libraries, which give the ability to execute necessary functions. For example, the most basic function called ```printf```, which prints to the screen, is defined in the ```stdio.h``` header file.
+
+To add the ability to run the printf command to our program, we must add the following include directive to our first line of the code:
+
+``` 
+#include <stdio.h> 
+```
+The second part of the code is global variables, which will be accessible through out the program.
+```
+int gVar; /* global variable */
+```
+Here ```gVar``` is accessible through out the program.
+
+The third part of the code is the actual code which we are going to write. The first code which will run will always reside in the ```main``` function.
+
+```
+int main()
+{
+  /* main() function body starts here */
+  int lVar; /* local variable */
+}
+```
+The ```int``` keyword indicates that the function ```main``` will return an integer - a simple number. The number which will be returned by the function indicates whether the program that we wrote worked correctly. If we want to say that our code was run successfully, we will return the number 0. A number greater than 0 will mean that the program that we wrote failed.
+
+Local variables will be accessible in the functions where they are declared/defined. Here ```lVar``` is accessible only in main function.
+
+For this tutorial, we will return 0 to indicate that our program was successful:
+```
+return 0;
+```
+
+Notice that every statement in C must end with a semicolon, so that the compiler knows that a new statement has started.
+
+Last but not least, we will need to call the function ```printf``` to print our sentence.
+
