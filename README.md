@@ -212,11 +212,14 @@ Notice that every statement in C must end with a semicolon, so that the compiler
 
 Last but not least, we will need to call the function ```printf``` to print our sentence.
 
-``` Exercise ```
+```
+Exercise 
+```
 
 ```
 Program:
--------------------------------------------------------------------------------------------------------------
+--------
+--------
 #include<stdio.h>
 
 int main()
@@ -224,9 +227,9 @@ int main()
 	printf("Hello World!\n");
 	return 0;
 }
--------------------------------------------------------------------------------------------------------------
+--------
 Output:
 Hello World!
--------------------------------------------------------------------------------------------------------------
+--------
 ```
 
