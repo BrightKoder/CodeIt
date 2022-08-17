@@ -225,7 +225,7 @@ From the point of view of when errors are detected, we distinguish:
 
 ### Exercise
 
-```C
+```c
 #include<stdio.h>
 
 int main()
