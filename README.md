@@ -223,13 +223,9 @@ From the point of view of when errors are detected, we distinguish:
 1. Compile time errors: syntax errors and static semantic errors indicated by the compiler.
 2. Runtime errors: dynamic semantic errors, and logical errors, that cannot be detected by the compiler (debugging).
 
-```
-Exercise
-```
+### Exercise
 
-```
-Program:
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+```C
 #include<stdio.h>
 
 int main()
@@ -237,7 +233,8 @@ int main()
   printf("Hello World!\n");
   return 0;
 }
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+```
+```
 Output:
 Hello World!
 ```
