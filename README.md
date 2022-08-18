@@ -43,7 +43,7 @@ The following are the four Compilation stages through which our program passes b
  
  To take a deep dive inside the C compilation process let’s compile a C program. Write or copy below C program and save it as ``` compilation.c.```
  
- ```
+ ```C
  /* Learning C compilation process */
 #include <stdio.h>
 
@@ -79,7 +79,7 @@ After pre-processing it generates a temporary file with .i extension. Since, it 
 ``` gcc -E compilation.c ``` [In Linux]
 
 To view contents of the pre-processed file open ``` <file-name>.i``` in your favourite text editor. As in our case below is an extract of ```compilation.i``` file.
-```
+```i
 # 1 "compilation.c"
 # 1 ""
 # 1 ""
@@ -102,10 +102,11 @@ To view contents of the pre-processed file open ``` <file-name>.i``` in your fav
  int __attribute__((__cdecl__)) __attribute__ ((__nothrow__)) putw (int, FILE*);
 # 3 "compilation.c" 2
 
+# 4 "compilation.c"
 int main()
 {
-    printf("Hello, World!");
-    return 0;
+   printf("Hello, World!");
+   return 0;
 }
 
 ```
@@ -123,28 +124,51 @@ Also we can generate ```<file-name>.s``` by using the following command:<br><br>
 
 Let us look into ```compilation.s``` file.
 
-```
+```s
 	.file	"compilation.c"
-	.def	___main;	.scl	2;	.type	32;	.endef
-	.section .rdata,"dr"
-LC0:
-	.ascii "Hello, World!\0"
 	.text
-	.globl	_main
-	.def	_main;	.scl	2;	.type	32;	.endef
-_main:
-	pushl	%ebp
-	movl	%esp, %ebp
-	andl	$-16, %esp
-	subl	$16, %esp
-	call	___main
-	movl	$LC0, (%esp)
-	call	_printf
+	.section	.rodata
+.LC0:
+	.string	"Hello, World!"
+	.text
+	.globl	main
+	.type	main, @function
+main:
+.LFB0:
+	.cfi_startproc
+	endbr64
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	leaq	.LC0(%rip), %rdi
 	movl	$0, %eax
-	leave
+	call	printf@PLT
+	movl	$0, %eax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
 	ret
-	.ident	"GCC: (tdm-1) 4.9.2"
-	.def	_printf;	.scl	2;	.type	32;	.endef
+	.cfi_endproc
+.LFE0:
+	.size	main, .-main
+	.ident	"GCC: (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0"
+	.section	.note.GNU-stack,"",@progbits
+	.section	.note.gnu.property,"a"
+	.align 8
+	.long	 1f - 0f
+	.long	 4f - 1f
+	.long	 5
+0:
+	.string	 "GNU"
+1:
+	.align 8
+	.long	 0xc0000002
+	.long	 3f - 2f
+2:
+	.long	 0x3
+3:
+	.align 8
   
   ```
   
@@ -155,10 +179,11 @@ Also we can generate ```<file-name>.o``` by using the following command:<br><br>
 ``` gcc -c compilation.c ``` [In Linux]
 
 This file is encoded in low level machine language and cannot be viewed using text editors. However, if you still open this in notepad, it look like.
-```
-L     J       .text           $   Ü   ,           0`.data                               @ 0À.bss                                € 0À.rdata                            @ 0@/4                               @ 0@U‰åƒäðƒìè    Ç$    è    ¸    ÉÃHello, World!    GCC: (tdm-1) 4.9.2  
-          
-           .file       þÿ  gcompilation.c     _main                            .text          !                .data                            .bss                             .rdata                                                         ___main          _printf             .rdata$zzz .rdata$zzz
+```o
+ELF          >                    (          @     @  
+ óúUH‰åH=    ¸    è    ¸    ]ÃHello, World!  GCC: (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0                GNU   À                 zR x                 E†C
+W                               ñÿ                                                                                                                                                         	                                                                                  *                       compilation.c main _GLOBAL_OFFSET_TABLE_ printf                     üÿÿÿÿÿÿÿ             üÿÿÿÿÿÿÿ                       .symtab .strtab .shstrtab .rela.text .data .bss .rodata .comment .note.GNU-stack .note.gnu.property .rela.eh_frame                                                                                           @                                            @               h      0                           &                     `                                      ,                     `                                      1                     `                                     9      0               n       ,                             B                      š                                      R                                                            j                     À       8                              e      @               ˜                	                                       ø       8         
+                 	                      0      1                                                    °      t                              
 ```
 #### 4. Linking of object files
 Finally, the linker comes in action and performs the final task of compilation process. It accepts the intermediate file ```<file-name.o>``` generated by the assembler. It links all the function calls with their original definition. Which means the function ```printf()``` gets linked to its original definition.
